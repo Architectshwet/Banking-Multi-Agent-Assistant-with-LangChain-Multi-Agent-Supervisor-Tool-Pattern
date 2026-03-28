@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "banking_swarm_agent": "./banking/agents/multi_agent.py:create_banking_swarm_agent_dev"
+  },
+  "env": ".env"
+}

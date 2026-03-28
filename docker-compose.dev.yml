@@ -1,0 +1,27 @@
+services:
+  banking-agent-dev:
+    build: .
+    container_name: banking-agent-dev
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    restart: unless-stopped
+    command: ["uv", "run", "uvicorn", "banking.server:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    volumes:
+      - ./banking:/app/banking
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - banking-network-dev
+
+networks:
+  banking-network-dev:
+    driver: bridge
+    name: banking-dev-network
