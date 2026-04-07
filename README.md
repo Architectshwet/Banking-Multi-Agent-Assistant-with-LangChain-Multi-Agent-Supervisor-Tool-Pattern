@@ -2,13 +2,13 @@
 
 This project is a digital banking assistant built with the LangChain multi-agent supervisor pattern.
 The `BankingSupervisor` is the main user-facing agent with custom tools: `authentication`, `account_agent_tool`, and `payments_agent_tool`.
-`account_agent_tool` and `payments_agent_tool` are tool-wrapped sub-agents for account and payments domains.
+The supervisor uses parent-thread checkpointing, while `account_agent_tool` and `payments_agent_tool` are tool-wrapped sub-agents with isolated specialist checkpoints for account and payments domains.
 It supports authentication workflows, account workflows (profile, balances, transactions, cards), and payment workflows (saved payees, fund transfer, bill payment) with multi-turn memory and streaming responses.
 
 ## Features
 
 - Single supervisor agent with custom tools for authentication and domain delegation.
-- Two custom tools are tool-wrapped sub-agents: `account_agent_tool` and `payments_agent_tool`.
+- The single supervisor uses a parent-thread checkpointer, while two custom tools are tool-wrapped sub-agents with isolated specialist checkpointing: `account_agent_tool` and `payments_agent_tool`.
 - Supervisor handles flow/routing; sub-agents handle domain reasoning and internal tool calls.
 - Two specialist agents:
   - `AccountAgent`: profile, account details, transactions, card portfolio.
